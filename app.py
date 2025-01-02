@@ -102,6 +102,23 @@ def plot_cumulative(
 
     return fig
 
+def plot_time_of_day(df):
+
+    df["time of day"] = df["bev time"].dt.hour
+
+    fig = px.histogram(
+        df,
+        title="TIME OF DAY",
+        x="time of day",
+        color="bev type",
+        nbins=24, # 1 bin per hour
+    )
+
+    fig.update_layout(yaxis_title="count during range",    xaxis=dict(
+        range=[0, 24]  # Set x-axis range from 0 to 6
+    ))
+
+    return fig
 
 plotly.io.templates.default = "plotly_white"
 
@@ -126,11 +143,7 @@ graph_time_cost = plot_cumulative(
     yaxis_title="cost"
 )
 
-graph_by_hour = px.histogram(  # TODO: add graph
-    df,
-    title="PLACEHOLDER",
-    x="bev type",
-)
+graph_by_hour = plot_time_of_day(df)
 
 
 # %% MAKE APP
