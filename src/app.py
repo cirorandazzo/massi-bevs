@@ -149,7 +149,9 @@ graph_by_hour = plot_time_of_day(df)
 # %% MAKE APP
 graph_width = 6  # 12 total per row
 external_stylesheets = [dbc.themes.BOOTSTRAP]
-app = Dash(external_stylesheets=external_stylesheets)
+
+app = Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 app.layout = [
     dbc.Container(
