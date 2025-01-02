@@ -49,7 +49,7 @@ df.set_index(["bev category", "bev type"], inplace=True)
 
 # %% MAKE APP
 graph_width = 6  # 12 total per row
-external_stylesheets = [dbc.themes.BOOTSTRAP]
+external_stylesheets = [dbc.themes.BOOTSTRAP, "./assets/buttons.css"]
 
 plotly.io.templates.default = "plotly_white"
 app = Dash(__name__, external_stylesheets=external_stylesheets)
@@ -72,11 +72,20 @@ app.layout = [
             ),
             # BUTTON ROW: TO ADD
             dbc.Row(
-                dcc.RadioItems(
-                    options=["all bev types", "by category", "other", "DC", "Coffee"],
+                dbc.RadioItems(
+                    id="slicer-buttons",
+                    options=[
+                        {"label": "all bev types", "value": "all bev types"},
+                        {"label": "by category", "value": "by category"},
+                        {"label": "dc", "value": "DC"},
+                        {"label": "coffee", "value": "Coffee"},
+                        {"label": "other", "value": "other"},
+                    ],
                     value="by category",
-                    id="slicer_buttons",
+                    labelClassName="radio-buttongroup-labels",
+                    labelCheckedClassName="radio-buttongroup-labels-checked",
                     inline=True,
+                    className="custom-radio"
                 ),
             ),
             # GRAPH ROW 1
@@ -144,7 +153,7 @@ def button_slice(df, how, known_categories=["DC", "Coffee"]):
         Output(component_id="graph_time_cost", component_property="figure"),
         Output(component_id="graph_by_hour", component_property="figure"),
     ],
-    [Input(component_id="slicer_buttons", component_property="value")],
+    [Input(component_id="slicer-buttons", component_property="value")],
 )
 def update_graphs(slicer_keyword):
     df_slice = button_slice(df, slicer_keyword)
