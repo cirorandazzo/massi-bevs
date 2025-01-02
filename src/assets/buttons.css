@@ -1,0 +1,63 @@
+/* 
+CSS for making radio buttons into a button group style.
+
+Based on discussion from https://github.com/facultyai/dash-bootstrap-components/issues/222#issuecomment-513201494
+*/
+
+
+/* Textboxes containing the button labels */
+.radio-buttongroup-labels {
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  font: bold 11px Roboto, sans-serif;
+  padding: 6px 7px;
+  background-image: -webkit-linear-gradient(top, #fefefe, #f3f3f3);
+  background-image: -moz-linear-gradient(top, #fefefe, #f3f3f3);
+  cursor: pointer;
+}
+
+.radio-buttongroup-labels.radio-buttongroup-labels-checked {
+  background-image: -webkit-linear-gradient(top, #eee, #e3e3e3);
+  background-image: -moz-linear-gradient(top, #eee, #e3e3e3);
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Center slicer button group */
+#slicer-buttons {
+  display: flex; /* Use flexbox for the container */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically (optional) */
+}
+
+/* Remove the circles */
+.custom-radio input[type="radio"] {
+  display: none;
+}
+
+/* Round out left side of leftmost button. radio-buttongroup-labels are
+nested in a div of class form-check*/
+.custom-radio .form-check:first-of-type .radio-buttongroup-labels {
+  border-radius: 3px 0 0 3px;
+}
+
+/* Round out right side of rightmost button. */
+.custom-radio .form-check:last-of-type .radio-buttongroup-labels {
+  border-radius: 0 3px 3px 0;
+}
+
+/* Remove right border of all except rightmost button */
+.custom-radio .form-check:not(:last-of-type) .radio-buttongroup-labels {
+  border-right: none;
+}
+
+/* Move buttons together */
+.custom-radio .form-check {
+  display: inline-block; /* Ensure divs are inline for a tight layout */
+  margin: 0; /* Remove any external spacing */
+  padding: 0; /* Remove internal spacing */
+  border: 0; /* Remove any default borders */
+}
+
+.radio-buttongroup-labels:hover {
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
