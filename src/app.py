@@ -52,7 +52,11 @@ graph_width = 6  # 12 total per row
 external_stylesheets = [dbc.themes.BOOTSTRAP, "./assets/buttons.css"]
 
 plotly.io.templates.default = "plotly_white"
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = Dash(
+    __name__,
+    title="massi's bevs",
+    external_stylesheets=external_stylesheets,
+)
 server = app.server
 
 app.layout = [
@@ -61,12 +65,14 @@ app.layout = [
             # HEADER ROW
             dbc.Row(
                 html.Div(
-                    children=[html.H1("massi's bev tracker")],
+                    [html.Img(src="./assets/logo.svg", height=80)],
                     style={
                         "textAlign": "center",
                         "color": "blue",
                         "fontSize": 30,
                         "fontFamily": "Optima, sans-serif",
+                        "padding-top": 10,
+                        "padding-bottom": 10,
                     },
                 ),
             ),
@@ -85,7 +91,7 @@ app.layout = [
                     labelClassName="radio-buttongroup-labels",
                     labelCheckedClassName="radio-buttongroup-labels-checked",
                     inline=True,
-                    className="custom-radio"
+                    className="custom-radio",
                 ),
             ),
             # GRAPH ROW 1
